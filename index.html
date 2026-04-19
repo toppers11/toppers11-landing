@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toppers11 — Choose Your Exam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #16a34a;
+      --green-vivid:  #22c55e;
+      --green-light:  #4ade80;
+      --green-pale:   #f0fdf4;
+      --green-mid:    #dcfce7;
+      --green-border: #bbf7d0;
+      --green-dark:   #14532d;
+      --gold:         #d97706;
+      --bg:           #f0fdf4;
+      --card-bg:      #ffffff;
+      --text:         #111827;
+      --muted:        #6b7280;
+      --border:       #e5e7eb;
+    }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      height: 58px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-vivid) 100%);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      box-shadow: 0 2px 10px rgba(34,197,94,0.35);
+    }
+    .logo-icon svg { width: 20px; height: 20px; }
+    .logo-badge {
+      position: absolute; top: -4px; right: -4px;
+      width: 13px; height: 13px;
+      background: #f59e0b;
+      border-radius: 50%;
+      font-size: 7.5px; font-weight: 800; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid #fff;
+    }
+    .logo-text { display: flex; flex-direction: column; line-height: 1; }
+    .logo-name { font-size: 0.95rem; font-weight: 900; color: #111; letter-spacing: -0.02em; }
+    .logo-sub  { font-size: 0.45rem; font-weight: 700; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; margin-top: 3px; }
+
+    /* ── MAIN ── */
+    main {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px 12px;
+      overflow: hidden;
+    }
+
+    /* ── HERO BANNER — matches the vivid green gradient from it.toppers11.com ── */
+    .hero-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #14532d 0%, #16a34a 45%, #22c55e 100%);
+      padding: 28px 36px 26px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+      border-radius: 0 0 24px 24px;
+      flex-shrink: 0;
+    }
+
+    /* Radial glow overlay */
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(74,222,128,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Subtle mesh dots */
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      position: relative; z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 10px;
+      padding: 4px 14px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 99px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-banner h1 {
+      position: relative; z-index: 1;
+      font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+      font-weight: 900;
+      line-height: 1.15;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .hero-banner h1 em {
+      font-style: normal;
+      color: #bbf7d0;
+    }
+
+    .hero-banner p {
+      position: relative; z-index: 1;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.55;
+      max-width: 400px;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 1040px;
+      width: 100%;
+    }
+
+    /* White cards with green accent — matching the it.toppers11.com style */
+    .card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    /* Coloured top bar */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      border-radius: 16px 16px 0 0;
+    }
+    .card.it::before   { background: linear-gradient(90deg, #16a34a, #4ade80); }
+    .card.nism::before { background: linear-gradient(90deg, #059669, #34d399); }
+    .card.ssc::before  { background: linear-gradient(90deg, #22c55e, #86efac); }
+
+    .card.no-link { cursor: default; }
+
+    .card:hover { transform: translateY(-5px); }
+    .card.it:hover   { border-color: #86efac; box-shadow: 0 16px 44px rgba(22,163,74,0.18); }
+    .card.nism:hover { border-color: #6ee7b7; box-shadow: 0 16px 44px rgba(5,150,105,0.18); }
+    .card.ssc:hover  { border-color: #bbf7d0; box-shadow: 0 16px 44px rgba(34,197,94,0.18); }
+
+    .icon-wrap {
+      width: 46px; height: 46px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+    .card.it   .icon-wrap { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .card.nism .icon-wrap { background: #ecfdf5; border: 1px solid #a7f3d0; }
+    .card.ssc  .icon-wrap { background: #f0fdf4; border: 1px solid #bbf7d0; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 99px;
+      margin-bottom: 9px;
+    }
+    .card.it   .tag { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .card.nism .tag { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+    .card.ssc  .tag { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 8px;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .desc {
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px; }
+    .pill {
+      font-size: 0.62rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+    .card.it   .pill { background: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; }
+    .card.nism .pill { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; }
+    .card.ssc  .pill { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+
+    .explore {
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      align-self: flex-start;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .card.it   .explore { background: #16a34a; color: #fff; }
+    .card.nism .explore { background: #059669; color: #fff; }
+    .card.ssc  .explore { background: #22c55e; color: #fff; }
+    .explore span { transition: transform 0.2s; display: inline-block; }
+    .card:hover .explore { filter: brightness(1.08); }
+    .card:hover .explore span { transform: translateX(3px); }
+
+    .coming-soon {
+      font-size: 0.63rem;
+      font-weight: 700;
+      color: #6b7280;
+      background: #f3f4f6;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 4px 12px;
+      margin-top: auto;
+      display: inline-block;
+      align-self: flex-start;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 0.66rem;
+      color: #9ca3af;
+      flex-shrink: 0;
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-banner { animation: fadeUp 0.35s ease both; }
+    .card { animation: fadeUp 0.4s ease both; }
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.18s; }
+    .card:nth-child(3) { animation-delay: 0.26s; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="https://it.toppers11.com/" class="logo" target="_blank">
+      <div class="logo-icon">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="2" width="18" height="4" rx="1.5" fill="white"/>
+          <rect x="8" y="6" width="4" height="12" rx="1.5" fill="white"/>
+        </svg>
+        <div class="logo-badge">1</div>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">TOPPERS11</span>
+        <span class="logo-sub">AI-Powered Test Series</span>
+      </div>
+    </a>
+  </nav>
+
+  <main>
+
+    <!-- Hero banner — vivid green gradient like it.toppers11.com -->
+    <div class="hero-banner">
+      <div class="hero-eyebrow">✦ Choose Your Path</div>
+      <h1>Three Exam Categories.<br><em>One Powerful Platform.</em></h1>
+      <p>Click any exam below to explore tests, syllabi, and pricing tailored to your goal.</p>
+    </div>
+
+    <div class="grid">
+
+      <!-- IT Departmental -->
+      <a href="https://it.toppers11.com/" class="card it" target="_blank">
+        <div class="icon-wrap">🏛️</div>
+        <span class="tag">Departmental Exam</span>
+        <h3>Income Tax Departmental Exams</h3>
+        <p class="desc">India's only dedicated platform for IT Dept promotion exams — MS, ITI &amp; ITO. Per official CBDT syllabus with PYQs &amp; negative marking.</p>
+        <div class="pills">
+          <span class="pill">MS / UDC</span>
+          <span class="pill">ITI Inspector</span>
+          <span class="pill">ITO Officer</span>
+          <span class="pill">PYQs Included</span>
+          <span class="pill">₹195/paper</span>
+        </div>
+        <div class="explore">Explore Tests <span>→</span></div>
+      </a>
+
+      <!-- NISM -->
+      <div class="card nism no-link">
+        <div class="icon-wrap">📈</div>
+        <span class="tag">Certificate Exam</span>
+        <h3>NISM Certificate Exams</h3>
+        <p class="desc">Mock tests for NISM Series exams — Mutual Funds, Equity Derivatives, Securities Operations &amp; more per SEBI-mandated syllabus.</p>
+        <div class="pills">
+          <span class="pill">Series V-A · VA-B</span>
+          <span class="pill">Series VIII</span>
+          <span class="pill">Research Analyst</span>
+          <span class="pill">Investment Adviser</span>
+          <span class="pill">SEBI Aligned</span>
+        </div>
+        <span class="coming-soon">⏳ Coming Soon</span>
+      </div>
+
+      <!-- SSC -->
+      <div class="card ssc no-link">
+        <div class="icon-wrap">📝</div>
+        <span class="tag">Government Exam</span>
+        <h3>SSC Exams</h3>
+        <p class="desc">Targeted practice for SSC CGL, CHSL, MTS &amp; CPO. Topic-wise tests, full-length mocks, and PYQ banks with detailed solutions.</p>
+        <div class="pills">
+          <span class="pill">SSC CGL</span>
+          <span class="pill">SSC CHSL</span>
+          <span class="pill">SSC MTS</span>
+          <span class="pill">SSC CPO</span>
+          <span class="pill">Tier I &amp; II</span>
+        </div>
+        <span class="coming-soon">⏳ Coming Soon</span>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Toppers11 · AI-Powered Test Series
+  </footer>
+
+</body>
+</html>
